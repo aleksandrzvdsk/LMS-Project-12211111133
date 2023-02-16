@@ -1,5 +1,7 @@
 package model;
 
+import repository.EnrollmentRepository;
+
 import java.util.ArrayList;
 
 public class CourseEnrollment {
@@ -13,9 +15,21 @@ public class CourseEnrollment {
 
     public CourseEnrollment(Student student, Course course) {
         this.id = ++lastID;
+        this.setProperties(student, course);
+        EnrollmentRepository.insertEnrollments(student.getId(), course.getId());
+    }
+    public CourseEnrollment(int id, Student student, Course course) {
+        this.id = id;
+        this.setProperties(student, course);
+    }
+
+
+
+    public void setProperties(Student student,Course course){
         this.student = student;
         this.course = course;
         list.add(this);
+
     }
 
     static ArrayList<Course> getCoursesByStudent(Student student) {
@@ -44,6 +58,14 @@ public class CourseEnrollment {
                 return ce;
             }
         }
-        return new CourseEnrollment(student, course);
+        return new CourseEnrollment(lastID, student, course);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

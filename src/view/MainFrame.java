@@ -25,6 +25,8 @@ public class MainFrame extends JFrame {
         setLayout(new FlowLayout());
         setJMenuBar(new MainMenuBar());
         add(studentListPanel);
+        add(courseListPanel);
+
 
         setVisible(true);
     }

@@ -1,6 +1,7 @@
 package view.student;
 
 import model.Student;
+import repository.StudentRepository;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -20,9 +21,11 @@ public class AddStudentPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (!name.getText().isEmpty() && !surname.getText().isEmpty()) {
                     new Student(name.getText(), surname.getText());
+                    StudentRepository.insert(name.getText(),surname.getText());
                     name.setText("");
                     surname.setText("");
                     MainFrame.addStudentFrame.setVisible(false);
+
                 }
             }
         });

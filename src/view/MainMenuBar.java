@@ -1,18 +1,23 @@
 package view;
 
 import com.company.Main;
+import model.Student;
 import view.course.AddCourseFrame;
 import view.student.AddStudentFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainMenuBar extends JMenuBar {
     public MainMenuBar(){
         add(fileMenu());
         add(lists());
         add(helpMenu());
+
     }
 
 
@@ -26,9 +31,17 @@ public class MainMenuBar extends JMenuBar {
 
         file.add(newItem);
         newItem.add(newStudent);
+        newItem.addSeparator();
         newItem.add(newCourse);
+
         file.add(settings);
-        file.add(exit);
+        file.addSeparator();
+        file.add(exit).addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
         newStudent.addActionListener(new ActionListener() {
             @Override
@@ -54,6 +67,7 @@ public class MainMenuBar extends JMenuBar {
         JMenuItem students = new JMenuItem("Студенты");
 
         lists.add(courses);
+        lists.addSeparator();
         lists.add(students);
 
         courses.addActionListener(new ActionListener() {
@@ -61,6 +75,14 @@ public class MainMenuBar extends JMenuBar {
             public void actionPerformed(ActionEvent e) {
                 Main.mainFrame.remove(MainFrame.studentListPanel);
                 Main.mainFrame.add(MainFrame.courseListPanel);
+                Main.mainFrame.pack();
+            }
+        });
+        students.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.mainFrame.remove(MainFrame.courseListPanel);
+                Main.mainFrame.add(MainFrame.studentListPanel);
                 Main.mainFrame.pack();
             }
         });
@@ -78,6 +100,8 @@ public class MainMenuBar extends JMenuBar {
         return help;
     }
 
-
 }
+
+
+
 
